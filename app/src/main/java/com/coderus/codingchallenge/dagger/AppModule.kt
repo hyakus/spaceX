@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
     /**
-     * Provides an instance of the Room database.
+     * Provides an instance of the Room [AppDatabase].
      */
     @Singleton
     @Provides
@@ -29,7 +29,7 @@ object AppModule {
         ).fallbackToDestructiveMigration().build()
     }
     /**
-     * Provides an instance of the Repository.
+     * Provides an instance of the [Repository].
      */
     @Provides
     fun provideRepository(db: AppDatabase): Repository = Repository(db)
