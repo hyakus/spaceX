@@ -72,8 +72,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                     return@Observer
                 }
 
-                if(newValue.status == Status.SUCCESS)
-                {
+                if(newValue.status == Status.SUCCESS) {
                     var list = newValue.data
                     list = list.sortedWith(compareByDescending { it.dateInstant() })
                     update(list);

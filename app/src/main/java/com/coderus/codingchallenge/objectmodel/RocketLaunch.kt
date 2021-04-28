@@ -24,7 +24,6 @@ import java.util.*
 @Entity(tableName = "launch")
 @JsonClass(generateAdapter = true)
 data class RocketLaunch(
-
         @Json(name = "flight_number")
         @PrimaryKey
         val flightNumber: Int,
@@ -66,16 +65,14 @@ data class RocketLaunch(
             return formatter.format(dateInstant())
         }
 
-        fun launchStatus():LaunchStatus
+        fun launchStatus(): LaunchStatus
         {
             return if(success == true) {
                 LaunchStatus.SUCCESS
             } else {
                 if (isFutureLaunch()) LaunchStatus.UPCOMING else LaunchStatus.UNSUCCESSFUL
-
             }
         }
-
 
         private fun isFutureLaunch(): Boolean
         {

@@ -1,2 +1,0 @@
-com/coderus/codingchallenge/test/BuildConfig.java
- com.coderus.codingchallenge.test.BuildConfig

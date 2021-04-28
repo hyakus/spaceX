@@ -54,8 +54,8 @@ class DetailFragment: Fragment(R.layout.fragment_detail)
         binding.detailsValue.text = launch.details
         binding.launchDateUTCValue.text = launch.dateShort()
 
-        var text: String = ""
-        var textColor: Int
+        var text = ""
+        val textColor: Int
 
         when(launch.launchStatus()) {
             LaunchStatus.SUCCESS -> { text = requireContext().getString(R.string.successful); textColor = Color.GREEN }
