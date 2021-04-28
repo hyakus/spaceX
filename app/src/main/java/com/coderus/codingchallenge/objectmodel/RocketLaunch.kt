@@ -42,6 +42,9 @@ data class RocketLaunch(
     @ColumnInfo(name = "success")
     val success: Boolean?
 ) : Parcelable {
+        /**
+        *   Convenience method that returns an Instant from dateUTC.
+        */
         fun dateInstant(): Instant {
             val df: DateTimeFormatter =
                 DateTimeFormatterBuilder()
@@ -52,14 +55,18 @@ data class RocketLaunch(
 
             return date.toInstant(ZoneOffset.UTC)
         }
-
+        /**
+        *   Returns a short date from dateUTC for displaying a shorter date.
+        */
         fun dateShort(): String {
             val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                     .withLocale(Locale.UK)
                     .withZone(ZoneId.systemDefault())
             return formatter.format(dateInstant())
         }
-
+        /**
+        *   Calculate [LaunchStatus] using Success/ isFutureLaunch().
+        */
         fun launchStatus(): LaunchStatus {
             return if (success == true) {
                 LaunchStatus.SUCCESS
@@ -67,13 +74,14 @@ data class RocketLaunch(
                 if (isFutureLaunch()) LaunchStatus.UPCOMING else LaunchStatus.UNSUCCESSFUL
             }
         }
+        /**
+        *   Returns true if the launch dateUTC is after now().
+        */
+        @Suppress("CommentOverPrivateFunction")
+        private fun isFutureLaunch(): Boolean = dateInstant().isAfter(Instant.now())
 
-        private fun isFutureLaunch(): Boolean {
-            return dateInstant().isAfter(Instant.now())
-        }
-
-        /*
-        *   Parcelable implementation
+        /**
+        *   Parcelable implementation.
          */
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeInt(flightNumber)
@@ -88,20 +96,24 @@ data class RocketLaunch(
                 parcel.readString() ?: "",
                 parcel.readString() ?: "",
                 parcel.readString(),
-                parcel.readValue(Boolean::class.java.classLoader) as? Boolean) {
-        }
+                parcel.readValue(Boolean::class.java.classLoader) as? Boolean)
+        /**
+        *   Parcelable implementation.
+        */
+        override fun describeContents(): Int = 0
 
-        override fun describeContents(): Int {
-            return 0
-        }
-
+        /**
+        *   Parcelable implementation.
+        */
         companion object CREATOR : Parcelable.Creator<RocketLaunch> {
-            override fun createFromParcel(parcel: Parcel): RocketLaunch {
-                return RocketLaunch(parcel)
-            }
+            /**
+             *   Parcelable implementation.
+             */
+            override fun createFromParcel(parcel: Parcel): RocketLaunch = RocketLaunch(parcel)
 
-            override fun newArray(size: Int): Array<RocketLaunch?> {
-                return arrayOfNulls(size)
-            }
+            /**
+             *   Parcelable implementation.
+             */
+            override fun newArray(size: Int): Array<RocketLaunch?> = arrayOfNulls(size)
         }
     }

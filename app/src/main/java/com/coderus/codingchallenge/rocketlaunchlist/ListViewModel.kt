@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.coderus.codingchallenge.objectmodel.Resource
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
 import com.coderus.codingchallenge.objectmodel.Status
-import com.coderus.codingchallenge.repository.IRepository
+import com.coderus.codingchallenge.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.GlobalScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * ViewModel class to expose data to the ListFragment that it is required to display.
  */
 @HiltViewModel
-class ListViewModel @Inject constructor(private val repository: IRepository) : ViewModel() {
+class ListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     val results = MutableLiveData<Resource<List<RocketLaunch>>>()
 

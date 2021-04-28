@@ -18,9 +18,15 @@ class RocketLaunchListAdapter internal constructor(
         RocketLaunchListDiffCallback()
     ) {
 
+    /**
+     * Custom ViewHolder for RecyclerView.
+     */
     inner class ListItemViewHolder(val listItemView: ListItemView) :
         RecyclerView.ViewHolder(listItemView)
 
+    /**
+     * Returns a ViewHolder with a ListItemView.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
         return ListItemViewHolder(ListItemView(context))
     }
@@ -31,6 +37,9 @@ class RocketLaunchListAdapter internal constructor(
         holder.listItemView.setOnClickListener(onClickListener)
     }
 
+    /**
+     * Update [RocketLaunch] List.
+     */
     fun update(list: List<RocketLaunch>) {
         submitList(list)
     }

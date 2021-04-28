@@ -16,7 +16,7 @@ class ListItemView(context: Context) : CardView(context) {
     private val missionDateText: TextView
     private val missionNameText: TextView
     private val launchSuccessText: TextView
-    public var launch: RocketLaunch? = null
+    var launch: RocketLaunch? = null
 
     init {
         inflate(context, R.layout.list_item_view, this)
@@ -29,6 +29,9 @@ class ListItemView(context: Context) : CardView(context) {
         launchSuccessText = findViewById(R.id.launchSuccessText)
     }
 
+    /**
+     * Update view with details of [RocketLaunch].
+     */
     fun setItem(listItem: RocketLaunch) {
         launch = listItem
         missionNameText.text = listItem.name

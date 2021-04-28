@@ -2,7 +2,6 @@ package com.coderus.codingchallenge.dagger
 
 import android.content.Context
 import androidx.room.Room
-import com.coderus.codingchallenge.repository.IRepository
 import com.coderus.codingchallenge.repository.Repository
 import com.coderus.codingchallenge.room.AppDatabase
 import dagger.Module
@@ -12,9 +11,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * General Dagger Module for the Application.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
-object Module {
+object AppModule {
+    /**
+     * Provides an instance of the Room database.
+     */
     @Singleton
     @Provides
     fun provideDB(@ApplicationContext context: Context): AppDatabase {
@@ -23,9 +28,10 @@ object Module {
             AppDatabase.DATABASE_NAME
         ).fallbackToDestructiveMigration().build()
     }
-
+    /**
+     * Provides an instance of the Repository.
+     */
     @Provides
-    fun provideRepository(db: AppDatabase): IRepository {
-        return Repository(db)
-    }
+    fun provideRepository(db: AppDatabase): Repository = Repository(db)
+
 }

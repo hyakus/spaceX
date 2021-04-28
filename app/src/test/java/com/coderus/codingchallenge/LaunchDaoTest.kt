@@ -1,4 +1,4 @@
-package com.coderus.codingchallenge.rocketlaunchlist
+package com.coderus.codingchallenge
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider

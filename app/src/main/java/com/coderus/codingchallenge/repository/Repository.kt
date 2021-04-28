@@ -7,19 +7,27 @@ import com.coderus.codingchallenge.room.AppDatabase
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+** Primary implementation for the Repository for retrieving [RocketLaunch] data.
+*/
 class Repository @Inject constructor(
     private val db: AppDatabase
-) : IRepository {
+) {
+    /**
+    ** Retrieve all available cached [RocketLaunch]es.
+    */
+    fun getAllLaunches(): List<RocketLaunch> =  db.dao().getAllLaunches()
 
-    override fun getAllLaunches(): List<RocketLaunch> {
-        return db.dao().getAllLaunches()
-    }
-
-    override fun insertAll(launches: List<RocketLaunch>) {
+    /**
+    ** Store new [RocketLaunch]es.
+    */
+    fun insertAll(launches: List<RocketLaunch>) {
         db.dao().insertAll(launches)
     }
-
-    override suspend fun retrieveRemoteData(): Resource<List<RocketLaunch>> {
+    /**
+    ** Retrieve all new [RocketLaunch]es.
+    */
+    suspend fun retrieveRemoteData(): Resource<List<RocketLaunch>> {
         return try {
             val response = APIService.create().getRocketLaunchList()
 

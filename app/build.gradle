@@ -77,4 +77,5 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+    testImplementation("io.mockk:mockk:1.10.0")
 }

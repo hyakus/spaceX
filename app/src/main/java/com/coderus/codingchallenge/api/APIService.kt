@@ -21,6 +21,9 @@ interface APIService {
     suspend fun getRocketLaunchList(): List<RocketLaunch>
 
     companion object {
+        /**
+         * Create [APIService] instance.
+         */
         fun create(): APIService = Retrofit.Builder()
             .baseUrl("https://api.spacexdata.com/v4/")
             .client(OkHttpClient.Builder().build())

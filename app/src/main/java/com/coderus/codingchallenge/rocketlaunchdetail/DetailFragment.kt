@@ -11,6 +11,9 @@ import com.coderus.codingchallenge.databinding.FragmentDetailBinding
 import com.coderus.codingchallenge.objectmodel.LaunchStatus
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
 
+/**
+ * A Fragment to display details of specific launches.
+ */
 class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var _binding: FragmentDetailBinding? = null
 
@@ -37,6 +40,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         set(arguments?.get("launch") as RocketLaunch?)
     }
 
+    /**
+     * Load and display data for [RocketLaunch] if available.
+     */
     fun set(launch: RocketLaunch?) {
         if (launch == null || context == null) {
             return
@@ -51,7 +57,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         when (launch.launchStatus()) {
             LaunchStatus.SUCCESS -> { text = requireContext().getString(R.string.successful); textColor = Color.GREEN }
-            LaunchStatus.UNSUCCESSFUL -> { text = requireContext().getString(R.string.unsuccessful); textColor = Color.RED }
+            LaunchStatus.UNSUCCESSFUL -> {
+                text = requireContext().getString(R.string.unsuccessful); textColor = Color.RED
+            }
             LaunchStatus.UPCOMING -> { text = requireContext().getString(R.string.upcoming); textColor = Color.YELLOW }
         }
 
