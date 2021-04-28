@@ -28,6 +28,11 @@ android {
         }
     }
 
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
     buildFeatures {
         viewBinding true
     }
@@ -42,7 +47,6 @@ android {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     def nav_version = "2.3.3"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -64,6 +68,7 @@ dependencies {
 
     // Room
     def room_version = "2.2.6"
+    testImplementation 'androidx.test:core:1.2.0'
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

@@ -19,6 +19,10 @@ class ListViewModel @Inject constructor(private val repository: Repository) : Vi
 
     val results = MutableLiveData<Resource<List<RocketLaunch>>>()
 
+    init {
+        retrieveData()
+    }
+
     /**
      * Request the list of [RocketLaunch] data.
      */
@@ -26,7 +30,7 @@ class ListViewModel @Inject constructor(private val repository: Repository) : Vi
                                 retrieveAPIData()
                             }
 
-    private suspend fun retrieveLocalData() {
+    private fun retrieveLocalData() {
         val response = repository.getAllLaunches()
 
         results.postValue(if (response.isEmpty()) Resource.error("An unknown error occurred. Please check your network and try again later", null) else Resource.success(response))

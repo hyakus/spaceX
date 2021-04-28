@@ -1,12 +1,19 @@
 package com.coderus.codingchallenge
 
 import com.coderus.codingchallenge.rocketlaunchlist.ListViewModel
-import org.junit.Before
+import io.mockk.coVerify
+import org.junit.Test
+import io.mockk.verify
 
 class ListViewModelTest {
-    private lateinit var viewModel: ListViewModel
-    @Before
-    fun setUp() {
-        viewModel = ListViewModel(MockHelper.mockRepository())
+
+    @Test
+    fun `viewModel is created and calls retrieveData`()
+    {
+        val repository = MockHelper.mockRepository()
+        ListViewModel(repository)
+        coVerify { repository.retrieveRemoteData() }
+        verify { repository.getAllLaunches() }
     }
+
 }

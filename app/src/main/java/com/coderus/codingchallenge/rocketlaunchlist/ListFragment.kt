@@ -77,7 +77,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
                 }
             })
         }
-        retrieveData()
     }
 
     private val listener = View.OnClickListener {
