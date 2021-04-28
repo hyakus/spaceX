@@ -25,9 +25,7 @@ object Module {
     }
 
     @Provides
-    fun provideRepository(db: AppDatabase):IRepository
-    {
+    fun provideRepository(db: AppDatabase): IRepository {
         return Repository(db)
     }
-
 }

@@ -10,10 +10,9 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-
 internal class LaunchDaoTest {
 
-    private lateinit var database:AppDatabase
+    private lateinit var database: AppDatabase
     private lateinit var dao: LaunchDao
 
     @Before
@@ -31,9 +30,9 @@ internal class LaunchDaoTest {
 
     @Test
     fun insertAllRocketLaunch() = runBlocking {
-        val launch = RocketLaunch(-1, "name","date","details",true)
-        val launch2 = RocketLaunch(-2, "name","date","details",true)
-        val launch3 = RocketLaunch(-3, "name","date","details",true)
+        val launch = RocketLaunch(-1, "name", "date", "details", true)
+        val launch2 = RocketLaunch(-2, "name", "date", "details", true)
+        val launch3 = RocketLaunch(-3, "name", "date", "details", true)
 
         val list = listOf<RocketLaunch>(launch, launch2, launch3)
 
@@ -48,7 +47,7 @@ internal class LaunchDaoTest {
 
     @Test
     fun insertRocketLaunch() = runBlocking {
-        val launch = RocketLaunch(-1, "name","date","details",true)
+        val launch = RocketLaunch(-1, "name", "date", "details", true)
 
         dao.insert(launch)
 
@@ -59,16 +58,12 @@ internal class LaunchDaoTest {
 
     @Test
     fun deleteRocketLaunch() = runBlocking {
-        val launch = RocketLaunch(-1, "name","date","details",true)
+        val launch = RocketLaunch(-1, "name", "date", "details", true)
 
         dao.insert(launch)
-
-        dao.delete(launch);
+        dao.delete(launch)
 
         val allLaunches = dao.getAllLaunches()
         assert(!allLaunches.contains(launch))
     }
-
-
-
 }

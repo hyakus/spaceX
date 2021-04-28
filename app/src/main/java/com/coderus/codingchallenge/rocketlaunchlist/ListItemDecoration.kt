@@ -19,4 +19,3 @@ class ListItemDecoration(private val verticalSpacing: Int) : RecyclerView.ItemDe
         outRect.bottom = verticalSpacing
     }
 }
-

@@ -3,11 +3,11 @@ package com.coderus.codingchallenge.api
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import java.util.concurrent.Executors
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-import java.util.concurrent.Executors
 
 /**
  * Retrofit API to retrieve data from the SpaceX API.
@@ -35,5 +35,4 @@ interface APIService {
             .build()
             .create(APIService::class.java)
     }
-
 }

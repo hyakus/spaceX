@@ -17,7 +17,9 @@ import com.coderus.codingchallenge.databinding.FragmentListBinding
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
 import com.coderus.codingchallenge.objectmodel.Status
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Fragment to display the list of Rocket Launches.
@@ -44,10 +46,9 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupList()
-        binding.retryButton.setOnClickListener(){
+        binding.retryButton.setOnClickListener() {
             retryOnClick()
         }
-
     }
 
     override fun onDestroyView() {
@@ -63,19 +64,16 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             viewModel.results.observe(viewLifecycleOwner, Observer { newValue ->
                 binding.progressBar.visibility = GONE
 
-                if(newValue.data == null
-                        || newValue.data.isEmpty()
-                        || newValue.status == Status.ERROR)
-                {
+                if (newValue.data == null || newValue.data.isEmpty() || newValue.status == Status.ERROR) {
                     binding.retryButton.visibility = VISIBLE
                     presentError(newValue.message)
                     return@Observer
                 }
 
-                if(newValue.status == Status.SUCCESS) {
+                if (newValue.status == Status.SUCCESS) {
                     var list = newValue.data
                     list = list.sortedWith(compareByDescending { it.dateInstant() })
-                    update(list);
+                    update(list)
                 }
             })
         }
@@ -88,14 +86,12 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
     }
 
-    private fun showDetail(launch: RocketLaunch?)
-    {
+    private fun showDetail(launch: RocketLaunch?) {
         val bundle = bundleOf("launch" to launch)
         view?.let { Navigation.findNavController(it).navigate(R.id.action_to_detailFragment, bundle) }
     }
 
-    private fun retrieveData()
-    {
+    private fun retrieveData() {
         GlobalScope.launch(Dispatchers.Main.immediate) {
             binding.retryButton.visibility = GONE
             binding.progressBar.visibility = VISIBLE
@@ -103,11 +99,8 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         viewModel.retrieveData()
     }
 
-
-    private fun presentError(msg: String?)
-    {
+    private fun presentError(msg: String?) {
         val builder = AlertDialog.Builder(context)
-
         builder.setTitle("Error")
 
         builder.setMessage(msg ?: getString(R.string.error_generic))
@@ -120,10 +113,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         }
     }
 
-
-    private fun retryOnClick()
-    {
+    private fun retryOnClick() {
         retrieveData()
     }
-
 }

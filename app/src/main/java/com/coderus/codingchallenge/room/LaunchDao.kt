@@ -1,11 +1,15 @@
 package com.coderus.codingchallenge.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
 
 @Dao
-interface LaunchDao
-{
+interface LaunchDao {
     @Query("SELECT * FROM launch")
     fun getAllLaunches(): List<RocketLaunch>
 

@@ -1,12 +1,10 @@
 package com.coderus.codingchallenge.objectmodel
 
-import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.coderus.codingchallenge.R
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
@@ -16,7 +14,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Locale
 
 /**
  * Model object to store data about a rocket launch.
@@ -24,29 +22,27 @@ import java.util.*
 @Entity(tableName = "launch")
 @JsonClass(generateAdapter = true)
 data class RocketLaunch(
-        @Json(name = "flight_number")
-        @PrimaryKey
-        val flightNumber: Int,
+    @Json(name = "flight_number")
+    @PrimaryKey
+    val flightNumber: Int,
 
-        @Json(name = "name")
-        @ColumnInfo(name = "name")
-        val name: String,
+    @Json(name = "name")
+    @ColumnInfo(name = "name")
+    val name: String,
 
-        @Json(name = "date_utc")
-        @ColumnInfo(name = "date_utc")
-        val dateUTC: String,
+    @Json(name = "date_utc")
+    @ColumnInfo(name = "date_utc")
+    val dateUTC: String,
 
-        @Json(name = "details")
-        @ColumnInfo(name = "details")
-        val details: String?,
+    @Json(name = "details")
+    @ColumnInfo(name = "details")
+    val details: String?,
 
-        @Json(name = "success")
-        @ColumnInfo(name = "success")
-        val success: Boolean?
-) : Parcelable
-    {
-        fun dateInstant(): Instant
-        {
+    @Json(name = "success")
+    @ColumnInfo(name = "success")
+    val success: Boolean?
+) : Parcelable {
+        fun dateInstant(): Instant {
             val df: DateTimeFormatter =
                 DateTimeFormatterBuilder()
                         .parseCaseInsensitive()
@@ -57,26 +53,23 @@ data class RocketLaunch(
             return date.toInstant(ZoneOffset.UTC)
         }
 
-        fun dateShort(): String
-        {
+        fun dateShort(): String {
             val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
                     .withLocale(Locale.UK)
                     .withZone(ZoneId.systemDefault())
             return formatter.format(dateInstant())
         }
 
-        fun launchStatus(): LaunchStatus
-        {
-            return if(success == true) {
+        fun launchStatus(): LaunchStatus {
+            return if (success == true) {
                 LaunchStatus.SUCCESS
             } else {
                 if (isFutureLaunch()) LaunchStatus.UPCOMING else LaunchStatus.UNSUCCESSFUL
             }
         }
 
-        private fun isFutureLaunch(): Boolean
-        {
-            return dateInstant().isAfter(Instant.now());
+        private fun isFutureLaunch(): Boolean {
+            return dateInstant().isAfter(Instant.now())
         }
 
         /*
@@ -111,5 +104,4 @@ data class RocketLaunch(
                 return arrayOfNulls(size)
             }
         }
-
     }

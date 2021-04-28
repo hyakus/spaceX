@@ -13,5 +13,4 @@ class RocketLaunchListDiffCallback : DiffUtil.ItemCallback<RocketLaunch>() {
 
     override fun areContentsTheSame(oldItem: RocketLaunch, newItem: RocketLaunch) =
         oldItem == newItem
-
 }

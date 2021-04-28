@@ -1,19 +1,13 @@
 package com.coderus.codingchallenge.rocketlaunchlist
 
-import android.view.View
-import androidx.lifecycle.Observer
 import com.coderus.codingchallenge.objectmodel.Status
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.junit.After
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 
-class ListViewModelTest
-{
+class ListViewModelTest {
     private lateinit var viewModel: ListViewModel
     @Before
     fun setUp() {
@@ -25,7 +19,7 @@ class ListViewModelTest
     *   Leaving it in anyway.
      */
     @Test
-    fun testResults(){
+    fun testResults() {
 
         GlobalScope.launch(Dispatchers.Main) {
             viewModel.retrieveData()

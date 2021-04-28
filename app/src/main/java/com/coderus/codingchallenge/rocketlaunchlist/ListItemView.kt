@@ -7,7 +7,6 @@ import androidx.cardview.widget.CardView
 import com.coderus.codingchallenge.R
 import com.coderus.codingchallenge.objectmodel.LaunchStatus
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
-import java.time.Instant
 
 /**
  * Custom view to show a [RocketLaunch] in the list in the list fragment.
@@ -38,7 +37,7 @@ class ListItemView(context: Context) : CardView(context) {
         var text: String = ""
         var textColor: Int
 
-        when(listItem.launchStatus()) {
+        when (listItem.launchStatus()) {
             LaunchStatus.SUCCESS -> { text = context.getString(R.string.successful); textColor = Color.GREEN }
             LaunchStatus.UNSUCCESSFUL -> { text = context.getString(R.string.unsuccessful); textColor = Color.RED }
             LaunchStatus.UPCOMING -> { text = context.getString(R.string.upcoming); textColor = Color.YELLOW }
@@ -47,5 +46,4 @@ class ListItemView(context: Context) : CardView(context) {
         launchSuccessText.text = text
         launchSuccessText.setTextColor(textColor)
     }
-
 }

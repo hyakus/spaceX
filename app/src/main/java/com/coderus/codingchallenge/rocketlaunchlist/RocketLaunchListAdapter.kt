@@ -10,8 +10,10 @@ import com.coderus.codingchallenge.objectmodel.RocketLaunch
 /**
  * ListAdapter class for the Recycler view that displays a list of [RocketLaunch] objects.
  */
-class RocketLaunchListAdapter internal constructor(private val context: Context,
-                                                   private val onClickListener: View.OnClickListener) :
+class RocketLaunchListAdapter internal constructor(
+    private val context: Context,
+    private val onClickListener: View.OnClickListener
+) :
     ListAdapter<RocketLaunch, RocketLaunchListAdapter.ListItemViewHolder>(
         RocketLaunchListDiffCallback()
     ) {
@@ -29,9 +31,7 @@ class RocketLaunchListAdapter internal constructor(private val context: Context,
         holder.listItemView.setOnClickListener(onClickListener)
     }
 
-    fun update(list: List<RocketLaunch>)
-    {
+    fun update(list: List<RocketLaunch>) {
         submitList(list)
     }
-
 }

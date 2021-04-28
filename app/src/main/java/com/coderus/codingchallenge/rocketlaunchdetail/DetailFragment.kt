@@ -6,25 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.ActivityNavigator
-import androidx.navigation.fragment.navArgs
 import com.coderus.codingchallenge.R
 import com.coderus.codingchallenge.databinding.FragmentDetailBinding
-import com.coderus.codingchallenge.databinding.FragmentListBinding
 import com.coderus.codingchallenge.objectmodel.LaunchStatus
 import com.coderus.codingchallenge.objectmodel.RocketLaunch
 
-class DetailFragment: Fragment(R.layout.fragment_detail)
-{
+class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var _binding: FragmentDetailBinding? = null
 
     private val binding: FragmentDetailBinding
         get() = _binding!!
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
@@ -41,13 +37,9 @@ class DetailFragment: Fragment(R.layout.fragment_detail)
         set(arguments?.get("launch") as RocketLaunch?)
     }
 
-
-    fun set(launch: RocketLaunch?)
-    {
-        if(launch == null
-                || context == null)
-        {
-            return;
+    fun set(launch: RocketLaunch?) {
+        if (launch == null || context == null) {
+            return
         }
 
         binding.flightNumberValue.text = launch.flightNumber.toString()
@@ -57,7 +49,7 @@ class DetailFragment: Fragment(R.layout.fragment_detail)
         var text = ""
         val textColor: Int
 
-        when(launch.launchStatus()) {
+        when (launch.launchStatus()) {
             LaunchStatus.SUCCESS -> { text = requireContext().getString(R.string.successful); textColor = Color.GREEN }
             LaunchStatus.UNSUCCESSFUL -> { text = requireContext().getString(R.string.unsuccessful); textColor = Color.RED }
             LaunchStatus.UPCOMING -> { text = requireContext().getString(R.string.upcoming); textColor = Color.YELLOW }
@@ -65,7 +57,5 @@ class DetailFragment: Fragment(R.layout.fragment_detail)
 
         binding.launchSuccessValue.text = text
         binding.launchSuccessValue.setTextColor(textColor)
-
     }
-
 }
